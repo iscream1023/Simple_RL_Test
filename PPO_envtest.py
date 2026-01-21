@@ -18,12 +18,11 @@ for t in range(1000):
     # 3. 환경 진행 (Step t -> t+1)
     next_obs, reward, terminated , truncated, info = env.step(action)
 
-    # 4. 시각화 (CV 전공자 영역)
-    # obs는 (28, 28, 1) uint8 텐서임.
-    # 사람 눈에 잘 보이게 10배 확대 (Nearest Neighbor Interpolation)
+    # 4. 시각화 
+    # 사람 눈에 잘 보이게 10배 확대 
     render_img = cv2.resize(next_obs, (280, 280), interpolation=cv2.INTER_NEAREST)
     
-    # 컬러 텍스트로 상태 표시 (Reward, Done 여부)
+    # 컬러 텍스트로 상태 표시 
     render_img = cv2.cvtColor(render_img, cv2.COLOR_GRAY2BGR)
     cv2.putText(render_img, f"R: {reward}", (10, 30), 
                 cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 255), 2)

@@ -2,19 +2,19 @@ import cv2
 from stable_baselines3 import PPO
 from stable_baselines3.common.env_checker import check_env
 from PPO_env import MyCustomEnv
+log_dir = "./log/"
 
 # 1. 환경 생성
 env = MyCustomEnv()
 
 # 2. Gymnasium 표준 규격 검사 (Sanity Check)
-# 작성한 코드가 수학적/구조적으로 Gym 표준을 따르는지 자동 검사해줍니다.
-# 만약 에러가 나면 환경 코드(observation shape, type 등)를 수정해야 합니다.
 check_env(env)
 print("Environment check passed!")
 
-# 3. 모델 정의 (PPO 알고리즘 + CNN 정책)
+# 3. 모델 정의 
 # CnnPolicy: 입력이 이미지이므로 자동으로 CNN Feature Extractor를 사용합니다.
-model = PPO("CnnPolicy", env, verbose=1)
+model = PPO("CnnPolicy", env, verbose=1,tensorboard_log=log_dir)
+#   tensorboard --logdir=./ppo_logs/
 
 # 4. 학습 시작 (Optimization Loop)
 # 10,000 스텝 동안 에이전트가 환경과 상호작용하며 그라디언트를 업데이트합니다.

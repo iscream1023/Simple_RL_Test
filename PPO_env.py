@@ -50,7 +50,7 @@ class MyCustomEnv(gym.Env):
 
         diff = self.agent_pos - self.center_pos
         dist_sq = np.dot(diff, diff)
-        distance_penalty = dist_sq * 0.01
+        distance_penalty = dist_sq * 0.005
         if isinstance(action, np.ndarray):
             action = action.item()
 
@@ -64,9 +64,9 @@ class MyCustomEnv(gym.Env):
         terminated = False
         
         # 충돌 체크 (Collision Detection)
-        # 현재 위치의 grid_state가 1(벽)이면 충돌
-        if current_pixel_val >= 187:
-            reward = -50.0
+        # 현재 위치의 grid_state가 (벽)이면 충돌
+        if current_pixel_val >= 207:
+            reward = -100.0
             terminated = True
         elif current_pixel_val > 0:
             # (선택사항) 옅은 벽(127~167)을 밟았을 때 페널티
